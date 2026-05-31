@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+@theme {
+  /* ============================================================
+     Paleta Arciblock — Terracota + Azul marino
+     Basada en los colores del logo oficial.
+     ============================================================ */
+
+  /* Brand principal: TERRACOTA — arcilla cocida */
+  --color-brand-50: #fdf3ef;
+  --color-brand-100: #fbe2d8;
+  --color-brand-200: #f6c2ad;
+  --color-brand-300: #ef9b7c;
+  --color-brand-400: #e07453;
+  --color-brand-500: #c55a39;
+  --color-brand-600: #b54e2b;
+  --color-brand-700: #973f23;
+  --color-brand-800: #7a3320;
+  --color-brand-900: #62291a;
+  --color-brand: #b54e2b;
+
+  /* Acento crema/arena: tono cálido para fondos sutiles */
+  --color-cream-50: #fbf6f2;
+  --color-cream-100: #f5e9df;
+  --color-cream-200: #e5cfc3;
+  --color-cream-300: #d4b3a0;
+  --color-cream: #e5cfc3;
+
+  /* Steel/Navy: azul marino del logo, para fondos oscuros */
+  --color-steel-50: #f4f5f7;
+  --color-steel-100: #e3e5ea;
+  --color-steel-200: #c2c6cf;
+  --color-steel-300: #9aa0ad;
+  --color-steel-400: #6d7484;
+  --color-steel-500: #515869;
+  --color-steel-600: #3d4452;
+  --color-steel-700: #343a47;
+  --color-steel-800: #2c303d;
+  --color-steel-900: #1f232c;
+  --color-steel-950: #161922;
+  --color-steel: #2c303d;
+
+  /* Acento secundario amber (mantengo para alertas y destacados puntuales) */
+  --color-amber-300: #fcd34d;
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f59e0b;
+  --color-amber: #f59e0b;
+
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-display: var(--font-manrope), system-ui, sans-serif;
+
+  --animate-fade-in: fadeIn 0.5s ease-in-out;
+  --animate-slide-up: slideUp 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes slideUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px rgb(181 78 43 / 0.3); }
+  50% { box-shadow: 0 0 40px rgb(181 78 43 / 0.5); }
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #161922;
+  color: #ffffff;
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+/* Scrollbar custom */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #161922;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #343a47;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #515869;
+}
+
+/* Selección de texto */
+::selection {
+  background-color: rgb(181 78 43 / 0.35);
+  color: white;
+}
+
+.glow {
+  animation: glow 3s ease-in-out infinite;
+}
+
+/* Gradiente de marca: terracota cálida */
+.brand-gradient {
+  background: linear-gradient(135deg, #b54e2b 0%, #c55a39 50%, #ef9b7c 100%);
+}
+
+.brand-gradient-text {
+  background: linear-gradient(135deg, #e07453 0%, #b54e2b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Gradiente alternativo crema */
+.cream-gradient-text {
+  background: linear-gradient(135deg, #e5cfc3 0%, #d4b3a0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Tarjetas con efecto glassmorphism sutil */
+.glass-card {
+  background: rgb(44 48 61 / 0.5);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgb(61 68 82 / 0.5);
+}
+
+.glass-card:hover {
+  border-color: rgb(181 78 43 / 0.4);
+  transition: border-color 0.3s ease;
+}
+
+/* Patrón de bloques sutil — evoca filas de ladrillos */
+.industrial-grid {
+  background-image:
+    linear-gradient(rgb(61 68 82 / 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(61 68 82 / 0.2) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
