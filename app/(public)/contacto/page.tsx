@@ -37,7 +37,6 @@ export default function ContactoPage() {
       }
 
       setEstado("exito");
-      // Resetear el formulario
       setDatos({
         nombre: "",
         empresa: "",
@@ -55,7 +54,6 @@ export default function ContactoPage() {
 
   return (
     <>
-      {/* Hero */}
       <section className="py-20 md:py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="font-display text-4xl md:text-6xl font-bold text-white tracking-tight">
@@ -68,13 +66,10 @@ export default function ContactoPage() {
         </div>
       </section>
 
-      {/* Contenido */}
       <section className="pb-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Información de contacto */}
             <div className="lg:col-span-1 space-y-6">
-              {/* Correo */}
               <div className="glass-card rounded-2xl p-6">
                 <div className="w-10 h-10 bg-brand/10 border border-brand/30 rounded-lg flex items-center justify-center mb-4 text-brand">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -82,7 +77,7 @@ export default function ContactoPage() {
                   </svg>
                 </div>
                 <h3 className="text-white font-bold mb-2">Correo</h3>
-                
+                <a
                   href="mailto:arciblocksas@gmail.com"
                   className="text-brand hover:text-brand-400 text-sm break-all transition-colors"
                 >
@@ -90,7 +85,6 @@ export default function ContactoPage() {
                 </a>
               </div>
 
-              {/* WhatsApp */}
               <div className="glass-card rounded-2xl p-6">
                 <div className="w-10 h-10 bg-green-500/10 border border-green-500/30 rounded-lg flex items-center justify-center mb-4 text-green-400">
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -98,7 +92,7 @@ export default function ContactoPage() {
                   </svg>
                 </div>
                 <h3 className="text-white font-bold mb-2">WhatsApp</h3>
-                
+                <a
                   href="https://wa.me/573000000000?text=Hola%20Arciblock%2C%20quisiera%20cotizar%20productos%20de%20arcilla"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -112,7 +106,6 @@ export default function ContactoPage() {
                 <p className="text-steel-500 text-xs mt-2">Click para abrir chat</p>
               </div>
 
-              {/* Ubicación */}
               <div className="glass-card rounded-2xl p-6">
                 <div className="w-10 h-10 bg-brand/10 border border-brand/30 rounded-lg flex items-center justify-center mb-4 text-brand">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -123,7 +116,7 @@ export default function ContactoPage() {
                 <h3 className="text-white font-bold mb-2">Ubicación</h3>
                 <p className="text-steel-300 text-sm">Cúcuta, Norte de Santander</p>
                 <p className="text-steel-400 text-sm mb-3">Colombia</p>
-                
+                <a
                   href="https://www.google.com/maps/dir/?api=1&destination=7.948265528183545,-72.48604129738278"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -136,7 +129,6 @@ export default function ContactoPage() {
                 </a>
               </div>
 
-              {/* Horario */}
               <div className="glass-card rounded-2xl p-6">
                 <div className="w-10 h-10 bg-brand/10 border border-brand/30 rounded-lg flex items-center justify-center mb-4 text-brand">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -149,7 +141,6 @@ export default function ContactoPage() {
               </div>
             </div>
 
-            {/* Formulario */}
             <div className="lg:col-span-2">
               <div className="glass-card rounded-2xl p-8">
                 {estado === "exito" ? (
@@ -170,7 +161,7 @@ export default function ContactoPage() {
                       onClick={() => setEstado("idle")}
                       className="mt-6 text-brand hover:text-brand-400 text-sm font-semibold"
                     >
-                      ← Enviar otro mensaje
+                      Enviar otro mensaje
                     </button>
                   </div>
                 ) : (
@@ -275,7 +266,7 @@ export default function ContactoPage() {
                         onChange={(e) => setDatos({ ...datos, mensaje: e.target.value })}
                         rows={5}
                         className="w-full px-4 py-3 bg-steel-900 border border-steel-700 rounded-lg text-white placeholder-steel-500 focus:outline-none focus:border-brand transition-colors resize-none"
-                        placeholder="Producto y cantidad estimada · ciudad de destino · fecha en que necesitas el material · cualquier especificación adicional..."
+                        placeholder="Producto y cantidad estimada - ciudad de destino - fecha en que necesitas el material - cualquier especificación adicional..."
                       />
                     </div>
 
@@ -302,7 +293,6 @@ export default function ContactoPage() {
         </div>
       </section>
 
-      {/* MAPA - Cómo llegar a la planta */}
       <section className="pb-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="glass-card rounded-2xl overflow-hidden">
