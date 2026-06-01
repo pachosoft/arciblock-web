@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 
+type EstadoEnvio = "idle" | "enviando" | "exito" | "error";
+
 export default function ContactoPage() {
-  const [enviado, setEnviado] = useState(false);
+  const [estado, setEstado] = useState<EstadoEnvio>("idle");
+  const [errorMsg, setErrorMsg] = useState<string>("");
   const [datos, setDatos] = useState({
     nombre: "",
     empresa: "",
@@ -13,14 +16,41 @@ export default function ContactoPage() {
     mensaje: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const cuerpo = `Nombre: ${datos.nombre}\nEmpresa: ${datos.empresa}\nTeléfono: ${datos.telefono}\n\nMensaje:\n${datos.mensaje}`;
-    const url = `mailto:arciblocksas@gmail.com?subject=${encodeURIComponent(
-      datos.asunto || "Consulta desde arciblock.com"
-    )}&body=${encodeURIComponent(cuerpo)}`;
-    window.location.href = url;
-    setEnviado(true);
+    setEstado("enviando");
+    setErrorMsg("");
+
+    try {
+      const res = await fetch("/api/contacto", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(datos),
+      });
+
+      const json = await res.json();
+
+      if (!res.ok) {
+        setEstado("error");
+        setErrorMsg(json.error || "Error al enviar el mensaje");
+        return;
+      }
+
+      setEstado("exito");
+      // Resetear el formulario
+      setDatos({
+        nombre: "",
+        empresa: "",
+        correo: "",
+        telefono: "",
+        asunto: "",
+        mensaje: "",
+      });
+    } catch (err) {
+      console.error(err);
+      setEstado("error");
+      setErrorMsg("Error de conexión. Verifica tu internet e intenta de nuevo.");
+    }
   };
 
   return (
@@ -52,7 +82,7 @@ export default function ContactoPage() {
                   </svg>
                 </div>
                 <h3 className="text-white font-bold mb-2">Correo</h3>
-                <a
+                
                   href="mailto:arciblocksas@gmail.com"
                   className="text-brand hover:text-brand-400 text-sm break-all transition-colors"
                 >
@@ -68,7 +98,7 @@ export default function ContactoPage() {
                   </svg>
                 </div>
                 <h3 className="text-white font-bold mb-2">WhatsApp</h3>
-                <a
+                
                   href="https://wa.me/573000000000?text=Hola%20Arciblock%2C%20quisiera%20cotizar%20productos%20de%20arcilla"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -93,7 +123,7 @@ export default function ContactoPage() {
                 <h3 className="text-white font-bold mb-2">Ubicación</h3>
                 <p className="text-steel-300 text-sm">Cúcuta, Norte de Santander</p>
                 <p className="text-steel-400 text-sm mb-3">Colombia</p>
-                <a
+                
                   href="https://www.google.com/maps/dir/?api=1&destination=7.948265528183545,-72.48604129738278"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -122,7 +152,7 @@ export default function ContactoPage() {
             {/* Formulario */}
             <div className="lg:col-span-2">
               <div className="glass-card rounded-2xl p-8">
-                {enviado ? (
+                {estado === "exito" ? (
                   <div className="text-center py-12">
                     <div className="w-16 h-16 bg-brand/20 border border-brand/40 rounded-full flex items-center justify-center mx-auto mb-4 text-brand">
                       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -130,15 +160,27 @@ export default function ContactoPage() {
                       </svg>
                     </div>
                     <h3 className="text-white font-bold text-xl mb-2">
-                      Tu correo está casi listo
+                      ¡Mensaje enviado!
                     </h3>
                     <p className="text-steel-400 text-sm">
-                      Se abrió tu aplicación de correo con el mensaje preparado.
-                      Solo envíalo y te responderemos pronto.
+                      Recibimos tu mensaje y te responderemos en menos de 24 horas hábiles.
+                      Si es urgente, escríbenos por WhatsApp.
                     </p>
+                    <button
+                      onClick={() => setEstado("idle")}
+                      className="mt-6 text-brand hover:text-brand-400 text-sm font-semibold"
+                    >
+                      ← Enviar otro mensaje
+                    </button>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-5">
+                    {estado === "error" && (
+                      <div className="p-3 bg-red-500/10 border border-red-500/30 text-red-300 text-sm rounded-lg">
+                        {errorMsg}
+                      </div>
+                    )}
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-xs text-steel-400 uppercase tracking-wider mb-2">
@@ -147,6 +189,7 @@ export default function ContactoPage() {
                         <input
                           type="text"
                           required
+                          maxLength={100}
                           value={datos.nombre}
                           onChange={(e) => setDatos({ ...datos, nombre: e.target.value })}
                           className="w-full px-4 py-3 bg-steel-900 border border-steel-700 rounded-lg text-white placeholder-steel-500 focus:outline-none focus:border-brand transition-colors"
@@ -159,6 +202,7 @@ export default function ContactoPage() {
                         </label>
                         <input
                           type="text"
+                          maxLength={100}
                           value={datos.empresa}
                           onChange={(e) => setDatos({ ...datos, empresa: e.target.value })}
                           className="w-full px-4 py-3 bg-steel-900 border border-steel-700 rounded-lg text-white placeholder-steel-500 focus:outline-none focus:border-brand transition-colors"
@@ -175,6 +219,7 @@ export default function ContactoPage() {
                         <input
                           type="email"
                           required
+                          maxLength={200}
                           value={datos.correo}
                           onChange={(e) => setDatos({ ...datos, correo: e.target.value })}
                           className="w-full px-4 py-3 bg-steel-900 border border-steel-700 rounded-lg text-white placeholder-steel-500 focus:outline-none focus:border-brand transition-colors"
@@ -187,6 +232,7 @@ export default function ContactoPage() {
                         </label>
                         <input
                           type="tel"
+                          maxLength={50}
                           value={datos.telefono}
                           onChange={(e) => setDatos({ ...datos, telefono: e.target.value })}
                           className="w-full px-4 py-3 bg-steel-900 border border-steel-700 rounded-lg text-white placeholder-steel-500 focus:outline-none focus:border-brand transition-colors"
@@ -224,6 +270,7 @@ export default function ContactoPage() {
                       </label>
                       <textarea
                         required
+                        maxLength={5000}
                         value={datos.mensaje}
                         onChange={(e) => setDatos({ ...datos, mensaje: e.target.value })}
                         rows={5}
@@ -234,9 +281,10 @@ export default function ContactoPage() {
 
                     <button
                       type="submit"
-                      className="w-full px-6 py-3.5 bg-brand text-white font-semibold rounded-lg hover:bg-brand-600 transition-colors"
+                      disabled={estado === "enviando"}
+                      className="w-full px-6 py-3.5 bg-brand text-white font-semibold rounded-lg hover:bg-brand-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      Enviar mensaje
+                      {estado === "enviando" ? "Enviando..." : "Enviar mensaje"}
                     </button>
 
                     <p className="text-xs text-steel-500 text-center">
