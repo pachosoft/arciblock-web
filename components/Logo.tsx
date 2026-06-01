@@ -7,56 +7,47 @@ interface LogoProps {
 }
 
 /**
- * Logo Arciblock - usa el JPEG oficial.
- *
- * Variantes:
- * - full: logo completo (bloques + ARCIBLOCK + tagline). Usar en login, footer, etc.
- * - icon: solo bloques + texto ARCIBLOCK al lado. Usar en header.
- * - with-tagline: igual a full pero más enfatizado.
+ * Logo Arciblock.
+ * - icon: solo los bloques 3D (header)
+ * - full: bloques + texto ARCIBLOCK
+ * - with-tagline: full + slogan en CSS debajo
  */
 export default function Logo({
   size = "md",
   variant = "full",
   className = "",
 }: LogoProps) {
-  // Tamaños del logo completo (con bloques + texto)
-  const sizes = {
-    sm: { width: 110, height: 60 },
-    md: { width: 150, height: 82 },
-    lg: { width: 260, height: 143 },
-    xl: { width: 380, height: 209 },
+  const heightClasses = {
+    sm: variant === "icon" ? "h-9" : "h-12",
+    md: variant === "icon" ? "h-12" : "h-16",
+    lg: variant === "icon" ? "h-16" : "h-24",
+    xl: variant === "icon" ? "h-24" : "h-32",
   };
 
-  const current = sizes[size];
+  const imgSrc =
+    variant === "icon" ? "/images/logo-arciblock-icon.png" : "/images/logo-arciblock.png";
 
-  // Para el header (icon + texto al lado), usamos un layout horizontal compacto
-  if (variant === "icon") {
-    return (
-      <div className={`flex items-center gap-2.5 ${className}`}>
-        <Image
-          src="/images/logo-arciblock.jpg"
-          alt="Arciblock"
-          width={current.width}
-          height={current.height}
-          priority
-          className="h-10 w-auto md:h-12 object-contain"
-        />
-      </div>
-    );
-  }
+  // Dimensiones reales del archivo para que Next no se queje
+  const dims =
+    variant === "icon"
+      ? { width: 1391, height: 451 }
+      : { width: 1395, height: 654 };
 
-  // Logo completo (centrado, con tagline visible en la imagen)
   return (
-    <div className={`inline-flex items-center justify-center ${className}`}>
+    <div className={`inline-flex flex-col items-center ${className}`}>
       <Image
-        src="/images/logo-arciblock.jpg"
-        alt="Arciblock - Tradición natural con cada pieza"
-        width={current.width}
-        height={current.height}
+        src={imgSrc}
+        alt="Arciblock"
+        width={dims.width}
+        height={dims.height}
         priority
-        className="object-contain"
-        style={{ width: current.width, height: "auto" }}
+        className={`${heightClasses[size]} w-auto object-contain`}
       />
+      {variant === "with-tagline" && (
+        <span className="mt-2 text-[10px] md:text-xs text-steel-300 uppercase tracking-[0.18em] font-medium">
+          Tradición natural con cada pieza
+        </span>
+      )}
     </div>
   );
 }
