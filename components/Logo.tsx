@@ -7,9 +7,11 @@ interface LogoProps {
 }
 
 /**
- * Logo Arciblock.
- * - icon: solo los bloques 3D (header)
- * - full: bloques + texto ARCIBLOCK
+ * Logo Arciblock - usa los PNG oficiales con fondo transparente.
+ *
+ * Variantes:
+ * - icon: solo los bloques 3D (ideal para header)
+ * - full: bloques + texto ARCIBLOCK (ideal para login, footer)
  * - with-tagline: full + slogan en CSS debajo
  */
 export default function Logo({
@@ -25,9 +27,10 @@ export default function Logo({
   };
 
   const imgSrc =
-    variant === "icon" ? "/images/logo-arciblock-icon.png" : "/images/logo-arciblock.png";
+    variant === "icon"
+      ? "/images/logo-arciblock-icon.png"
+      : "/images/logo-arciblock.png";
 
-  // Dimensiones reales del archivo para que Next no se queje
   const dims =
     variant === "icon"
       ? { width: 1391, height: 451 }

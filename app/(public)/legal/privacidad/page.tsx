@@ -105,15 +105,15 @@ export default function PrivacidadPage() {
           <p>
             Para cualquier consulta sobre esta política o el manejo de tus
             datos, escríbenos a:{" "}
-            <a href="mailto:contacto@arciblock.com">
-              contacto@arciblock.com
+            <a href="mailto:arciblocksas@gmail.com">
+              arciblocksas@gmail.com
             </a>
           </p>
 
           <p className="text-sm text-steel-500 mt-12 pt-6 border-t border-steel-800">
             <strong>Responsable:</strong> Arciblock<br />
             <strong>Ubicación:</strong> Cúcuta, Norte de Santander, Colombia<br />
-            <strong>Correo:</strong> contacto@arciblock.com
+            <strong>Correo:</strong> arciblocksas@gmail.com
           </p>
         </div>
 

@@ -10,7 +10,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo + descripción */}
           <div className="md:col-span-2">
-			<Logo size="lg" variant="with-tagline" />
+            <Logo size="md" variant="with-tagline" />
             <p className="mt-5 text-steel-400 text-sm max-w-md leading-relaxed">
               Fabricantes de productos de arcilla para construcción en Cúcuta.
               Bloques H, ladrillos, pisos de gres, fachaletas y adoquines con
@@ -60,10 +60,10 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <a
-                  href="mailto:contacto@arciblock.com"
+                  href="mailto:arciblocksas@gmail.com"
                   className="text-steel-400 hover:text-brand transition-colors break-all"
                 >
-                  contacto@arciblock.com
+                  arciblocksas@gmail.com
                 </a>
               </li>
               <li className="text-steel-400">Cúcuta, Colombia</li>
